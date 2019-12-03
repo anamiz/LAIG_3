@@ -1,0 +1,189 @@
+<lxs>
+    <scene root="demoRoot" axis_length="5"/>
+ 
+    <views default="defaultCamera">
+        <perspective id="camera1" near="0.1" far="500" angle="45">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+       
+        <ortho id="camera2"  near="5" far="500" left="-50" right="50" top="50" bottom="-50" >
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-5" z="0" />
+            <up x="0" y="1" z="0" /> <!-- opcional, default 0,1,0 -->
+        </ortho>
+    </views>
+ 
+    <globals>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.7" g="0.7" b="0.7" a="1.0" />
+    </globals>
+ 
+    <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="9.8" y="11.9" z="10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+       
+        <omni id="sun" enabled="1">
+            <location x="0" y="50" z="10" w="1.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+       
+       
+    </lights>
+ 
+    <textures>
+         <texture id="glassTexture" file="scenes/images/lightblueGlass.jpg" />
+        <texture id="grayTexture" file="scenes/images/graycolor.jpg" />
+        <texture id="steelTexture" file="scenes/images/steel.jpg" />
+        <texture id="leavesTexture" file="scenes/images/leaves.jpg" />
+        <texture id="bankTexture" file="scenes/images/bank.jpg" />
+        <texture id="groundTexture" file="scenes/images/ground.jpg" />
+        <texture id="blacksteelTexture" file="scenes/images/blacksteel.jpg" />
+        <texture id="whiteTexture" file="scenes/images/white.jpg" />
+        <texture id="rockTexture" file="scenes/images/rock.jpg" />
+		<texture id="red" file="scenes/images/red.jpg" />
+		<texture id="black" file="scenes/images/black.jpg" />
+		<texture id="darkgrey" file="scenes/images/darkgrey.jpg" />
+		
+        <texture id="boardTex" file="scenes/images/board.jpg" />
+    </textures>
+ 
+    <materials>
+       
+        <material id="whitesteelMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+   
+        <material id="graysteelMaterial" shininess="8">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+            <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+   
+        <material id="grassMaterial" shininess="5">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.6" b="0.5" a="1.0" />
+            <diffuse r="0.5" g="0.6" b="0.5" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+       
+       
+        <material id="steelMaterial" shininess="5">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.8" g="0.8" b="0.8" a="1.0" />
+            <diffuse r="0.9" g="0.9" b="0.9" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </material>
+       
+        <material id="glassMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.6" g="0.8" b="0.8" a="1.0" />
+            <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
+            <specular r="0.2" g="0.6" b="0.9" a="0.0" />
+        </material>
+		
+		
+    
+	
+	<!-- starts here -->
+	
+		<material id="pavement" shininess="8">
+            <emission r="0.1" g="0.1" b="0.1" a="1.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+            <diffuse r="0.4" g="0.4" b="0.4" a="1.0" />
+            <specular r="0" g="0" b="0" a="0" /> 
+        </material>
+		
+        <material id="white" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.25" g="0.25" b="0.24" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="0.98" a="1.0" />
+            <specular r="0" g="0" b="0" a="0" />             
+		</material>
+		
+		<material id="red" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.24" g="0.05" b="0.04" a="1.0" />
+            <diffuse r="0.96" g="0.2" b="0.16" a="1.0" />
+            <specular r="0" g="0" b="0" a="0" /> 
+        </material>
+		
+		<material id="darkgrey" shininess="3">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
+            <specular r="0" g="0" b="0" a="1.0" />
+        </material>
+	
+	</materials>
+	<!--  ends here -->
+ 
+    <transformations>
+        <transformation id="demoTransform">
+            <scale x="5" y="1" z="5" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
+        </transformation>
+    </transformations>
+ 
+ 
+    <animations>
+        <animation id="ola" >           
+            <keyframe instant="50">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="360" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>    
+        </animation>
+		
+		<animation id="adeus" >           
+            <keyframe instant="20">
+                <translate x="100" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+
+			  
+        </animation>
+       
+       
+ 
+    </animations>
+ 
+ 
+    <primitives>
+	<!-- starts here -->
+		<primitive id="demoBoard">
+            <rectangle x1="-20" y1="-20" x2="20" y2="20" />
+        </primitive>
+        <primitive id="demoPiece">
+            <sphere radius="2" slices="15" stacks="15" />
+        </primitive> 
+    </primitives>
+ 
+    <components>
+   
+        <component id="Board">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="darkgrey" />
+            </materials>
+            <texture id="boardTex" length_s="0" length_t="0" />
+            <children>
+                <primitiveref id="demoBoard" />
+            </children>
+        </component>    
+    </components>
+</lxs>
