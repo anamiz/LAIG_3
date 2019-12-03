@@ -50,7 +50,6 @@
 		<texture id="red" file="scenes/images/red.jpg" />
 		<texture id="black" file="scenes/images/black.jpg" />
 		<texture id="darkgrey" file="scenes/images/darkgrey.jpg" />
-		
         <texture id="boardTex" file="scenes/images/board.jpg" />
     </textures>
  
@@ -152,12 +151,7 @@
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
-
-			  
         </animation>
-       
-       
- 
     </animations>
  
  
@@ -172,7 +166,6 @@
     </primitives>
  
     <components>
-   
         <component id="Board">
             <transformation>
                 <translate x="0" y="0" z="0" />

@@ -136,22 +136,13 @@ class XMLscene extends CGFscene {
         this.interface.addLights(this.graph.lights);
 
         this.interface.addViews(this.graph.views);
-        this.interface.addViews2(this.graph.views);
 
 
 
         this.sceneInited = true;
     }
 
-
-
-
-
-
-
-    /**
-     * Displays the scene.
-     */
+ 
     display() {
         // ---- BEGIN Background, camera and axis setup
 

@@ -63,18 +63,6 @@ class MyInterface extends CGFinterface {
 
         }
 
-        addViews2(views)
-        {
-            var viewsKey = [];
-            for(var key in views)
-            {
-               viewsKey.push(key);
-            }
-           var c = this.gui.add(this.scene, 'selectedSC', viewsKey).name('Selected Security Camera');
-           c.onChange(this.scene.changeSC.bind(this.scene));
-        }
-
-
 
 
 

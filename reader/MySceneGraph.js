@@ -1496,16 +1496,16 @@ class MySceneGraph {
         //TODO : display do plane crlh!!!
 
         //To test the parsing/creation of the primitives, call the display function directly
-	this.displayLoop('demoEye','steelMaterial',['groundTexture']);
+	this.displayLoop('Board','steelMaterial',['groundTexture']);
     }
 	
 	
 	
 	displayLoop(nodeID,fathermaterialID, fathertextureID){
-		var re;
 		if (this.primitives[nodeID] != null){
+        console.log(this.primitives[nodeID]);
 		this.primitives[nodeID].display();
-		}
+        }
 		
 		for (var q=0;q<this.components.length;q++){
 			if(this.components[q].id==nodeID){
