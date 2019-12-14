@@ -142,15 +142,7 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
-
-
-
-
-
-
-    /**
-     * Displays the scene.
-     */
+ 
     display() {
         // ---- BEGIN Background, camera and axis setup
 
