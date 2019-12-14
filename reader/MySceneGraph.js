@@ -1496,13 +1496,13 @@ class MySceneGraph {
         //TODO : display do plane crlh!!!
 
         //To test the parsing/creation of the primitives, call the display function directly
-	this.displayLoop('demoEye','steelMaterial',['groundTexture']);
+	this.displayLoop('Board','steelMaterial',['groundTexture']);
     }
 	
 	
 	
 	displayLoop(nodeID,fathermaterialID, fathertextureID){
-		var re;
+        var re;
 		if (this.primitives[nodeID] != null){
 		this.primitives[nodeID].display();
 		}
@@ -1514,7 +1514,7 @@ class MySceneGraph {
 					this.scene.pushMatrix();
 					if(this.components[q].texture[0]=='inherit'){
 						this.tex=this.textures[fathertextureID];
-						var passingTextureID=fathertextureID;
+                        var passingTextureID=fathertextureID;
 					}
 					else{
 						this.tex = this.textures[this.components[q].texture[0]];
@@ -1523,7 +1523,8 @@ class MySceneGraph {
 					
 					if(this.components[q].materials=='inherit'){
 						this.mat=this.materials[fathermaterialID];
-						var passingMaterialID=fathermaterialID;
+                        var passingMaterialID=fathermaterialID;
+
 					}
 					else{
 						this.mat= this.materials[this.components[q].materials];
