@@ -1321,7 +1321,6 @@ class MySceneGraph {
            
         var tempAnimation=new MyKeyframeAnimation(this.scene,animationID,this.keyFrameGroup);
        
-        //console.log(this.keyFrameGroup[0][3][0]);
         this.animations.push(tempAnimation);
            
            
@@ -1503,7 +1502,6 @@ class MySceneGraph {
 	
 	displayLoop(nodeID,fathermaterialID, fathertextureID){
 		if (this.primitives[nodeID] != null){
-        console.log(this.primitives[nodeID]);
 		this.primitives[nodeID].display();
         }
 		
