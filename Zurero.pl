@@ -5,7 +5,7 @@
 %---------------------------------------ZURERO EM PROLOG--------------------------------------------------------------%
 %---------------------------------------------------------------------------------------------------------------------%
 %---------TUTORIAL----------------------------------------------------------------------------------------------------%
-%--Para começar um jogo insira um dos seguintes comandos: ------------------------------------------------------------%
+%--Para comeï¿½ar um jogo insira um dos seguintes comandos: ------------------------------------------------------------%
 %-- hvsh. - Para um Jogo de Humano contra Humano. -------------%
 %-- pcvspc. - Para um Jogo de Computador contra Computador ----%
 %-- hvspc. - Para um Jogo de Humano contra Computador. --------%
@@ -39,7 +39,7 @@ newboard([[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 
 
 %----------------------------------------------------------------------------------------------------------------------------------%
-%----------------------------------------------PLACE-Colocar peça-------------------------------------------------------------------%
+%----------------------------------------------PLACE-Colocar peï¿½a-------------------------------------------------------------------%
 %----------------------------------------------------------------------------------------------------------------------------------%
 
 
@@ -49,7 +49,7 @@ place(J, BI, L, N, BF):-   %J-Jogador   BI-board inicial   L-letra   N-numero  B
                               ItL is Ch-65,
                               place2(J, BI, ItL, ItN, BF).
 
-%funçoes necessarias para o funcionamento de move: place2 e subst%
+%funï¿½oes necessarias para o funcionamento de move: place2 e subst%
 
 
 %Place2 - Escolhe a linha horizontal desejada(N) e chama subst%
@@ -78,10 +78,10 @@ subst(J, ItL, [_|T1], [J|T2]) :-
 
 
 %----------------------------------------------------------------------------------------------------------------------------------%
-%----------------------------------------------Colocar primeira peça---------------------------------------------------------------%
+%----------------------------------------------Colocar primeira peï¿½a---------------------------------------------------------------%
 %----------------------------------------------------------------------------------------------------------------------------------%
 
-%primeiro a jogar é sempre o preto, daí o "1"%
+%primeiro a jogar ï¿½ sempre o preto, daï¿½ o "1"%
 first(L, N, BF) :-
                               newboard(BI), 
                               place(1, BI, L, N, BF).
@@ -89,7 +89,7 @@ first(L, N, BF) :-
 
 
 %----------------------------------------------------------------------------------------------------------------------------------%
-%----------------------------------------------MOVE-Colocar peças que sucedem a primeira-------------------------------------------%
+%----------------------------------------------MOVE-Colocar peï¿½as que sucedem a primeira-------------------------------------------%
 %----------------------------------------------------------------------------------------------------------------------------------%
 %-----passado como iteracoes   se O='up' ou 'down'  It=19-numero   se O='left' ou 'right' It = Letra-A (primeira linha ou coluna, it=0 ---%
 move(J, BI, 'Up', It, BF):- 
@@ -110,7 +110,7 @@ move(J, BI, _, It, BF) :- inverterBoardV(BI, BI2T),
                               inverterBoardV(BFT, BF).
 
 
-%-----------funçoes necessarias para funcionamento de move--------------%             
+%-----------funï¿½oes necessarias para funcionamento de move--------------%             
                  
 %faz inversao na horizontal do Board%
 
@@ -132,10 +132,10 @@ inverterBoardV(BI, BF):- transpose(BI, BI2),
 
 
 
-%move para inserir peças por cima ou esquerda%
+%move para inserir peï¿½as por cima ou esquerda%
 
 moveLeft(J, BI, It, BF):-
-                              check(BI, It), !,  %caso check e true->  placeT, ou seja ha um elemento atras da peça%
+                              check(BI, It), !,  %caso check e true->  placeT, ou seja ha um elemento atras da peï¿½a%
                               placeT(J,BI, It, BF).
 moveLeft(J, BI, It, BF):-placeF(J,BI, It, BF).
 
@@ -167,7 +167,7 @@ placeF(J,BI, It, BF):-
                               place(J, BF1, L, N , BF).
 
 
-%encontra a cor da peça que a pedra deslizante embate%
+%encontra a cor da peï¿½a que a pedra deslizante embate%
 findEmpurrar([H|_], 0, H).
 findEmpurrar([_|T], Res, Jog) :- 
                               Res1 is Res-1,
@@ -184,8 +184,8 @@ find(_, V, V).
 check(BI,  It):-         linha(BI, It, Linha), !,
                               nextElementFull(Linha).
 
-%percorre a linha desejada até chegar ao pimeiro elemento nao 0, e vê o proximo elemento a ver se nao e 0%
-% se tem uma peça atras TRUE se nao FALSE%
+%percorre a linha desejada atï¿½ chegar ao pimeiro elemento nao 0, e vï¿½ o proximo elemento a ver se nao e 0%
+% se tem uma peï¿½a atras TRUE se nao FALSE%
 nextElementFull([0|T]) :-  nextElementFull(T).
 nextElementFull([1|[1|_]]) :-  true.
 nextElementFull([1|[2|_]]) :- true.
@@ -193,7 +193,7 @@ nextElementFull([2|[1|_]]) :- true.
 nextElementFull([2|[2|_]]) :- true.
        
 
-%percorre board até a linha desejada e retorna essa linha%
+%percorre board atï¿½ a linha desejada e retorna essa linha%
 linha([H|_], 0,H).
 linha([_|T], It, Res) :-
                               It1 is It-1,
@@ -210,6 +210,8 @@ linha([_|T], It, Res) :-
 %----------------------------------------------------------------------------------------------------------------------------------%
 %----------------------------------------------GAME_OVER : fim do jogo-------------------------------------------------------------%
 %----------------------------------------------------------------------------------------------------------------------------------%
+
+
 
 game_over(B,W) :- gameOverH(B,W).
 game_over(B,W) :- gameOverV(B,W).
@@ -267,17 +269,17 @@ validmoveRight([_|T], It,O, H1, H2) :-  It1 is It-1,validmoveRight(T, It1,O, H1,
      
 
 confere(H) :- tempeca(H), naoocupado(H), twopieces(H).
-%confere se tem uma peça%
+%confere se tem uma peï¿½a%
 tempeca([0|T]) :- tempeca(T).
 tempeca([1|_]):- true.
 tempeca([2|_]):- true.
 
 %confere se nao esta tudo ocupado, se estiver false%
-%se estiver tudo ocupado nao e possivel inserir uma nova peça%
+%se estiver tudo ocupado nao e possivel inserir uma nova peï¿½a%
 naoocupado([0|_]):-true.
 naoocupado([_|T]):- naoocupado(T).
 
-%duas peças no inicio da linha, aí tb nao pode inserir mais uma, nao da para empurrar%
+%duas peï¿½as no inicio da linha, aï¿½ tb nao pode inserir mais uma, nao da para empurrar%
 twopieces([1|[1|_]]) :- false.
 twopieces([0|[0|_]]):-true.
 twopieces([0|[1|_]]):-true.
@@ -294,7 +296,7 @@ twopieces([0|[2|_]]):-true.
 %----------------------------------------------------------------------------------------------------------------%
 
 
-%value(Board, Player, direcao,It,  Value), num peças repetidas * 10%
+%value(Board, Player, direcao,It,  Value), num peï¿½as repetidas * 10%
 value(Board, Player, 'Up', It, Value):- transpose(Board, BoardT),
                               linha(BoardT, It, Line),
                               ignorezeros(Line, Line1),
@@ -334,7 +336,7 @@ countline([H|_], P, Temp, Value) :- H \= P, countline([], P, Temp, Value).
 %------------------------------Choose move------------------------------------------------------------------------%
 %-----------------------------------------------------------------------------------------------------------------%
 
-%choose_move(Board, Jogador, Dificuldade, MoveRes), moveres é um vetor, primeiro elemento é a direcao e segunda é a letra ou numero%
+%choose_move(Board, Jogador, Dificuldade, MoveRes), moveres ï¿½ um vetor, primeiro elemento ï¿½ a direcao e segunda ï¿½ a letra ou numero%
 
 choose_move(Board, _, 'Facil',[Oi, Vi]):- valid_moves(Board, O, V), length(O, L),  random(0, L, R), choose(O, R, Oi), choose(V,R, Vi).
 choose_move(Board,Jogador, _, [Ores,Vres]) :- valid_moves(Board, O, V), bestmove(Board, Jogador, O, V, 0,0, 0, Ores, Vres).
@@ -360,7 +362,7 @@ bestmove(Board, Jogador,['Down'|T], [_|T1], Temp, O, V,ORes, VRes) :- bestmove(B
 turnLetterToIterator(H, H1):- char_code(H, Num) , H1 is Num-65.
 
 
-%encontra o elemento desejado na linha, R é o iterador aleatorio e choose diz-nos qual o valor que se enconta em Orientacao[i] ou Valores[i])%
+%encontra o elemento desejado na linha, R ï¿½ o iterador aleatorio e choose diz-nos qual o valor que se enconta em Orientacao[i] ou Valores[i])%
 choose([H|_], 0, H).
 choose([_|T], R, Res):- R1 is R-1, choose(T, R1, Res).
 
@@ -382,7 +384,7 @@ pedir_jogada1(L,N):-
 
 %----pedir qualquer outra jogada------%
 
-%Pergunta de onde vem a peça%
+%Pergunta de onde vem a peï¿½a%
 pedir_ori(Ori):-
               write('Escolha de onde vem a peca: Up, Down, Left, Right'),
               read(Ori).
@@ -413,7 +415,7 @@ pedir_jogada(It,'Right'):-
                It is 19-X.
 
 %-----------------------------------------------------------------------------------------------------------------%
-%----------------------------------------Funçoes auxiliares do PC-------------------------------------------------%
+%----------------------------------------Funï¿½oes auxiliares do PC-------------------------------------------------%
 %-----------------------------------------------------------------------------------------------------------------%
 
 %-----primeira jogada de um jogador computador----%
@@ -448,7 +450,7 @@ processar2('Left',X,It):-
 
 
 
-%---Funçao utilizada para passar os dados da funcao choose_move para a funcao move ---%
+%---Funï¿½ao utilizada para passar os dados da funcao choose_move para a funcao move ---%
 processar_jogpc(MoveRes,Ori,It):-     
                      [Ori|X] = MoveRes,
                      processar2(Ori,X,It).
@@ -458,12 +460,12 @@ processar_jogpc(MoveRes,Ori,It):-
                 
 
 %-----------------------------------------------------------------------------------------------------------------%
-%------------------------------Começar um jogo--------------------------------------------------------------------%
+%------------------------------Comeï¿½ar um jogo--------------------------------------------------------------------%
 %-----------------------------------------------------------------------------------------------------------------%
 
-%----------------------Começar um Jogo Humano vs Humano-----------------------------------------------------------%        
+%----------------------Comeï¿½ar um Jogo Humano vs Humano-----------------------------------------------------------%        
 hvsh :-
-      write('Começou um jogo de Humano contra Humano'),
+      write('Comeï¿½ou um jogo de Humano contra Humano'),
       nl,
       display_game1(1),
       pedir_jogada1(L,N),
@@ -474,7 +476,7 @@ hvsh :-
 %--------------------------------PC vs PC-------------------------------------------------------------------------%
 
 pcvspc :- 
-      write('Começou um jogo de Computador contra Computador'),
+      write('Comeï¿½ou um jogo de Computador contra Computador'),
       nl,
       display_game1(1),
       pc_primeira_jogada(L,N),
@@ -490,7 +492,7 @@ pcvspc :-
 %-------------------------------------Humano vs PC----------------------------------------------------------------%
 
 hvspc :-
-      write('Começou um jogo de Humano contra PC'),
+      write('Comeï¿½ou um jogo de Humano contra PC'),
       nl,
       display_game1(1),
       write('Qual a dificuldade do Computador (Facil ou Dificil)?'),
@@ -503,7 +505,7 @@ hvspc :-
 %-------------------------------------PC vs Humano----------------------------------------------------------------%
 
 pcvsh :-
-      write('Começou um jogo de PC vs Humano'),
+      write('Comeï¿½ou um jogo de PC vs Humano'),
       nl,
       display_game1(1),
       pc_primeira_jogada(L,N),

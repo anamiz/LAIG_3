@@ -166,17 +166,45 @@
     </primitives>
  
     <components>
-        <component id="Board">
+            <component id="All">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <scale x="1" y="1" z="1" />
             </transformation>
             <materials>
-                <material id="darkgrey" />
+                <material id="whitesteelMaterial" />
             </materials>
             <texture id="boardTex" length_s="0" length_t="0" />
             <children>
-                <primitiveref id="demoBoard" />
+                <component id="Board" />
+                <component id="Piece" />
             </children>
-        </component>    
+        </component>
+        <component id="Board">
+            <transformation>
+                <rotate angle="-90" axis="x" />
+                <scale x="10" y="10" z="10" />
+            </transformation>
+            <materials>
+                <material id="whitesteelMaterial" />
+            </materials>
+            <texture id="boardTex" length_s="0" length_t="0" />
+            <children>
+                <componentref id="demoBoard" />
+            </children>
+        </component>
+        <component id="Piece">
+            <transformation>
+                <scale x="0.3" y="0.3" z="0.3" />
+                <translate x="12" y="2" z="-12" />
+            </transformation>
+            <materials>
+                <material id="whitesteelMaterial" />
+            </materials>
+            <texture id="boardTex" length_s="0" length_t="0" />
+            <children>
+                <primitiveref id="demoPiece"/>
+            </children>
+        </component>
+
     </components>
 </lxs>
