@@ -667,3 +667,73 @@ traduz(0, '+').
 traduz(1, 'B').
 traduz(2, 'W').
 
+
+
+%-------------------EXTRAS-------------------%
+toIteration(X, 'Up', It) :- 
+               char_code(X,Xc),
+               char_code('S',S),
+               It is 19-(S-Xc)-1.
+toIteration(X, 'Down', It) :-
+                char_code(X,Xc),
+               char_code('S',S),
+               It is 19-(S-Xc)-1. 
+toIteration(X, 'Left', It) :- It is 19-X.
+toIteration(X, 'Right', It) :- It is 19-X.
+
+check_value(Board, Iteration, 1) :-
+        check(Board, Iteration).
+check_value(_, _, 0).
+
+
+
+hasPieceBehind(Board, 'Up',Value, Res) :-
+        toIteration(Value, 'Up', Iteration),
+	transpose(Board, Board2), !,
+	check_value(Board2, Iteration, Res).
+hasPieceBehind(Board, 'Left',Value, Res) :-
+	toIteration(Value, 'Left', Iteration), !,
+	check_value(Board, Iteration, Res).
+hasPieceBehind(Board, 'Right',Value, Res) :-
+	toIteration(Value, 'Right', Iteration),
+        inverterBoardH(Board, Board2), !, 
+	check_value(Board2, Iteration, Res).
+hasPieceBehind(Board, _ ,Value, Res) :-
+	toIteration(Value, 'Down', Iteration),
+	inverterBoardV(Board, Board2),
+	transpose(Board2, Board3), ! ,
+	check_value(Board3, Iteration, Res).
+
+
+pieceBeingHit(Board, 'Up', Value, ColumnIteration, LineIteration, Colour) :-
+        toIteration(Value, 'Up', ColumnIteration),
+	transpose(Board, Board2), 
+        linha(Board2, ColumnIteration, Linha),
+        find(Linha, 0, LineIteration),
+        findEmpurrar(Linha, LineIteration, Colour).
+pieceBeingHit(Board, 'Left', Value,  ColumnIteration, LineIteration, Colour) :-
+        toIteration(Value, 'Left', LineIteration),
+        linha(Board, LineIteration, Linha),
+        find(Linha, 0, ColumnIteration),
+        findEmpurrar(Linha, ColumnIteration, Colour).
+pieceBeingHit(Board, 'Right', Value, ColumnIteration2, LineIteration, Colour) :-
+        toIteration(Value, 'Right', LineIteration),
+        inverterBoardH(Board, Board2),
+        linha(Board2, LineIteration, Linha),
+        find(Linha, 0, ColumnIteration),
+        ColumnIteration2 is 18-ColumnIteration,
+        findEmpurrar(Linha, ColumnIteration, Colour).
+pieceBeingHit(Board, _ , Value, ColumnIteration, LineIteration2, Colour) :-
+	toIteration(Value, 'Down', ColumnIteration),
+	inverterBoardV(Board, Board2),
+	transpose(Board2, Board3), ! ,
+        linha(Board3, ColumnIteration, Linha),
+        find(Linha, 0, LineIteration),
+        LineIteration2 is 18-LineIteration,
+        findEmpurrar(Linha, LineIteration, Colour).
+
+
+
+
+
+

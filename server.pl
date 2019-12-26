@@ -103,7 +103,35 @@ print_header_line(_).
 
 :- consult('Zurero.pl').
 
+%--Retorna Board Inicial---%
 parse_input(getInitialBoard, Board) :- newboard(Board).
+
+%--Movimento inicial, Retorna Board Final---%
 parse_input(first(Letra, Numero), Board):- first(Letra, Numero, Board).
+
+%--Retorna o Player Seguinte---%
 parse_input(next_player(CurrPlayer), NextPlayer) :- next_player(CurrPlayer, NextPlayer).
-parse_input(move(Player, IniBoard, Orientation, Iteration), FinalBoard) :- move(Player,IniBoard, Orientation, Iteration, FinalBoard).
+
+%--Outros movimentos, Retorna Board Final---%
+parse_input(movePiece(Player, IniBoard, Orientation, Value), FinalBoard) :- 
+	toIteration(Value, Orientation, Iteration),
+	move(Player,IniBoard, Orientation, Iteration, FinalBoard).
+
+%-- 1-Ganhou 0-Nao ganhou --%
+parse_input(check_state(Player, Board), 1) :-
+	game_over(Board, Player).
+parse_input(check_state(_, _),0).
+
+%-- 1-tem peça atras   0-nao tem peça atras--%
+parse_input(hasPieceBehind(Board, Orientation, Value), Res) :- hasPieceBehind(Board, Orientation, Value, Res ).
+
+%-- Cor da peça em que vai embater--%
+parse_input(colorPieceHit(Board, Orientation, Value), ColorRes) :-
+	pieceBeingHit(Board, Orientation, Value, _, _, ColorRes).
+
+%-- Coluna da peça que vai embater --%
+parse_input(columnPieceHit(Board, Orientation, Value), ColumnRes) :-
+	pieceBeingHit(Board, Orientation, Value, ColumnRes, _, _).
+%-- Linha da peça que vai embora --%
+parse_input(linePieceHit(Board, Orientation, Value), LineRes) :-
+	pieceBeingHit(Board, Orientation, Value, _, LineRes, _).
