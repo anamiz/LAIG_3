@@ -135,3 +135,7 @@ parse_input(columnPieceHit(Board, Orientation, Value), ColumnRes) :-
 %-- Linha da peça que vai embora --%
 parse_input(linePieceHit(Board, Orientation, Value), LineRes) :-
 	pieceBeingHit(Board, Orientation, Value, _, LineRes, _).
+
+
+%-- Movimentos validos --%
+

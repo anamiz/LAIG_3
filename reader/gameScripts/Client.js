@@ -1,4 +1,11 @@
-function getPrologRequest(requestString, onSuccess, onError, port)
+class Client
+{
+    constructor()
+    {
+    }
+
+
+    getPrologRequest(requestString, onSuccess, onError, port)
 {
     var requestPort = port || 8081
     var request = new XMLHttpRequest();
@@ -11,7 +18,7 @@ function getPrologRequest(requestString, onSuccess, onError, port)
     request.send();
 }
 
-function makeRequest() 
+     makeRequest() 
 {
     // Get Parameter Values
     var requestString = document.querySelector("#query_field").value;				
@@ -21,6 +28,7 @@ function makeRequest()
 }
 
 //Handle the Reply
-function handleReply(data){
+     handleReply(data){
     document.querySelector("#query_result").innerHTML=data.target.response;
+}
 }

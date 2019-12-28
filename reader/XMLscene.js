@@ -38,6 +38,10 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(20);
 
+        //Projeto 3
+        this.client=new Client();
+        this.game= new Zurero(this);
+
         
     }
 
