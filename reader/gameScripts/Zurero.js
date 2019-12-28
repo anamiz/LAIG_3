@@ -55,11 +55,26 @@ class Zurero extends CGFobject {
         this.scene.client.getPrologRequest(
             "getInitialBoard",
             function(data){
-                zurero.board=zurero.boardJS(data.target.response);
+                zurero.board=data.target.response;
                 zurero.currentState=zurero.gameState.FIRST_MOVE_BLACK;
             },
             function(data) { console.log("Connection Error in getInitialBoard");}
             );
+    }
+
+    firstMove(letra, numero)
+    {
+        var command = "first("+letra+","+numero+")";
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                zurero.board=data.target.response;
+                zurero.currentState=zurero.gameState.MOVE_WHITE;
+            },
+            function(date){console.log("Connection Error in first move");}
+        )
     }
 
     boardJS(strBoard)
@@ -82,5 +97,18 @@ class Zurero extends CGFobject {
         finalBoard.push(line);
         }
         return finalBoard;
+    }
+
+    boardPL()
+    {
+        var strBoard="[";
+        for(let i=0; i<this.board.length;i++)
+        {
+            strBoard = strBoard + "[";
+            for(let j=0; j<this.board[i].length; j++)
+            {
+
+            }
+        }
     }
 }
