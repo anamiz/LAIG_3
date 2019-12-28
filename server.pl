@@ -138,4 +138,5 @@ parse_input(linePieceHit(Board, Orientation, Value), LineRes) :-
 
 
 %-- Movimentos validos --%
-
+parse_input(valid_Orientations(Board), Orientations) :- valid_moves(Board, Orientations, _).
+parse_input(valid_Values(Board), Values):- valid_moves(Board, _, Values).

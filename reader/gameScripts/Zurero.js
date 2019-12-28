@@ -51,19 +51,36 @@ class Zurero extends CGFobject {
         this.moves=[];
         this.board=[];
         //get the initial Board
+        var zurero=this;
         this.scene.client.getPrologRequest(
             "getInitialBoard",
             function(data){
-                if(data.target.response.length == 265)
-                {
-                
-                }
-            }
+                zurero.board=zurero.boardJS(data.target.response);
+                zurero.currentState=zurero.gameState.FIRST_MOVE_BLACK;
+            },
+            function(data) { console.log("Connection Error in getInitialBoard");}
             );
-
-
-
     }
 
-
+    boardJS(strBoard)
+    {
+        var finalBoard = [];
+        var i=0;
+        
+        for(let numLines = 0; numLines<19; numLines++)
+        {
+            var line=[];
+            var columnCounter=0;
+            while(columnCounter != 19)
+            {if(strBoard[i] != "[" && strBoard[i] != "," && strBoard[i] != "]")
+            {
+                line.push(strBoard[i]);
+                columnCounter++;
+            }
+            i++;
+        }
+        finalBoard.push(line);
+        }
+        return finalBoard;
+    }
 }
