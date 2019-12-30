@@ -11,7 +11,7 @@ function getUrlVars() {
     return vars;
 }	 
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyAnimation.js', 'MyKeyframeAnimation.js', 'MyRectangle.js',  'MySphere.js',  'MyComponent.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyAnimation.js', 'MyKeyframeAnimation.js', 'MyRectangle.js',  'MySphere.js',  'MyComponent.js', 'gameScripts/Client.js' ,'gameScripts/Player.js','gameScripts/Zurero.js',
 
 main=function()
 {

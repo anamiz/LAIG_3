@@ -38,6 +38,10 @@ class MySceneGraph {
         this.defaultView=this.defaultView;
         // File reading 
         this.reader = new CGFXMLreader();
+		
+		// Picking
+		this.scene.setPickEnabled(true);
+		this.objects = [];
 
         /*
          * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -1484,11 +1488,27 @@ class MySceneGraph {
     log(message) {
         console.log("   " + message);
     }
+	
+	logPicking() {
+		if (this.pickMode == false) {
+			if (this.pickResults != null && this.pickResults.length > 0) {
+				for (var i = 0; i < this.pickResults.length; i++) {
+					var obj = this.pickResults[i][0];
+					if (obj) {
+						var customId = this.pickResults[i][1];
+						console.log("Picked object: " + obj + ", with pick id " + customId);						
+					}
+				}
+				this.pickResults.splice(0, this.pickResults.length);
+			}
+		}
+	}
 
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
+	this.logPicking();	
 	this.displayLoop('All','steelMaterial',['groundTexture']);
     }
 	
@@ -1500,40 +1520,44 @@ class MySceneGraph {
         }
 		
 		for (var q=0;q<this.components.length;q++){
-			if(this.components[q].id==nodeID){
-			var nodeChieldren=this.components[q].children;
-				for (var f=0;f<nodeChieldren.length;f++){
-					this.scene.pushMatrix();
-					if(this.components[q].texture[0]=='inherit'){
-						this.tex=this.textures[fathertextureID];
-                        var passingTextureID=fathertextureID;
-					}
-					else{
-						this.tex = this.textures[this.components[q].texture[0]];
-						var passingTextureID=this.components[q].texture[0];
-					}
-					
-					if(this.components[q].materials=='inherit'){
-						this.mat=this.materials[fathermaterialID];
-                        var passingMaterialID=fathermaterialID;
+				this.objects.push(new CGFplane(this.scene));
+				this.scene.registerForPick(q, this.objects[q]);
+				this.objects[q].display();
+				if(this.components[q].id==nodeID){
+				var nodeChieldren=this.components[q].children;
+					for (var f=0;f<nodeChieldren.length;f++){
+						this.scene.pushMatrix();
+						if(this.components[q].texture[0]=='inherit'){
+							this.tex=this.textures[fathertextureID];
+							var passingTextureID=fathertextureID;
+						}
+						else{
+							this.tex = this.textures[this.components[q].texture[0]];
+							var passingTextureID=this.components[q].texture[0];
+						}
+						
+						if(this.components[q].materials=='inherit'){
+							this.mat=this.materials[fathermaterialID];
+							var passingMaterialID=fathermaterialID;
 
+						}
+						else{
+							this.mat= this.materials[this.components[q].materials];
+							var passingMaterialID=this.components[q].materials;
+						}
+						this.mat.apply();
+						this.tex.bind();
+						this.scene.multMatrix(this.components[q].transformations);
+						for(var x=0;x<this.animations.length;x++){
+							if(this.animations[x].id==this.components[q].animation){
+								this.animations[x].apply();
+							}
+						}
+						this.displayLoop(nodeChieldren[f],passingMaterialID,passingTextureID);
+						this.scene.popMatrix();
 					}
-					else{
-						this.mat= this.materials[this.components[q].materials];
-						var passingMaterialID=this.components[q].materials;
-					}
-					this.mat.apply();
-					this.tex.bind();
-                    this.scene.multMatrix(this.components[q].transformations);
-                    for(var x=0;x<this.animations.length;x++){
-                        if(this.animations[x].id==this.components[q].animation){
-                            this.animations[x].apply();
-                        }
-                    }
-					this.displayLoop(nodeChieldren[f],passingMaterialID,passingTextureID);
-					this.scene.popMatrix();
 				}
-			}
+			
 		}
         
 	}

@@ -1,6 +1,7 @@
 class Zurero extends CGFobject {
     constructor(scene)
     {
+		super(scene);
         console.log("New Zurero Game");
         this.scene=scene;
         this.blackPlayer=new Player(this.scene, 1);
