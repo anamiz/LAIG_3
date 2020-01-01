@@ -132,7 +132,7 @@ parse_input(colorPieceHit(Board, Orientation, Value), ColorRes) :-
 %-- Coluna da peça que vai embater --%
 parse_input(columnPieceHit(Board, Orientation, Value), ColumnRes) :-
 	pieceBeingHit(Board, Orientation, Value, ColumnRes, _, _).
-%-- Linha da peça que vai embora --%
+%-- Linha da peça que vai embater --%
 parse_input(linePieceHit(Board, Orientation, Value), LineRes) :-
 	pieceBeingHit(Board, Orientation, Value, _, LineRes, _).
 

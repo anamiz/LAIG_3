@@ -1508,7 +1508,9 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-	this.logPicking();	
+    this.logPicking();	
+    this.scene.game.startGame('Player vs Player', 'Easy');
+
 	this.displayLoop('All','steelMaterial',['groundTexture']);
     }
 	

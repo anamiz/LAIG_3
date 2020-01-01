@@ -77,39 +77,4 @@ class Zurero extends CGFobject {
             function(date){console.log("Connection Error in first move");}
         )
     }
-
-    boardJS(strBoard)
-    {
-        var finalBoard = [];
-        var i=0;
-        
-        for(let numLines = 0; numLines<19; numLines++)
-        {
-            var line=[];
-            var columnCounter=0;
-            while(columnCounter != 19)
-            {if(strBoard[i] != "[" && strBoard[i] != "," && strBoard[i] != "]")
-            {
-                line.push(strBoard[i]);
-                columnCounter++;
-            }
-            i++;
-        }
-        finalBoard.push(line);
-        }
-        return finalBoard;
-    }
-
-    boardPL()
-    {
-        var strBoard="[";
-        for(let i=0; i<this.board.length;i++)
-        {
-            strBoard = strBoard + "[";
-            for(let j=0; j<this.board[i].length; j++)
-            {
-
-            }
-        }
-    }
 }
