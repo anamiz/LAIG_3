@@ -35,6 +35,8 @@ class XMLscene extends CGFscene {
         this.lightsKey = [];
 
         this.selectedCamera;
+        this.gameMode="Player vs Player";
+        this.gameDifficulty="Easy";
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(20);
 
@@ -157,6 +159,8 @@ class XMLscene extends CGFscene {
 
         this.interface.addViews(this.graph.views);
 
+        this.interface.addZureroPicks();
+        this.interface.addZureroOptions();
 
 
         this.sceneInited = true;
@@ -213,4 +217,21 @@ class XMLscene extends CGFscene {
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }
+
+    startGame(){
+        this.game.startGame(this.gameMode, this.gameDifficulty);
+    }
+
+    quitGame()
+    {
+        this.game.quitGame();
+    }
+
+    undo()
+    {
+        this.game.undo();
+    }
+    
+
+
 }

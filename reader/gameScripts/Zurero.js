@@ -77,4 +77,11 @@ class Zurero extends CGFobject {
             function(date){console.log("Connection Error in first move");}
         )
     }
+
+    quitGame()
+    {
+
+    }
+
+    undo(){}
 }

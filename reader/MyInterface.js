@@ -65,6 +65,27 @@ class MyInterface extends CGFinterface {
 
 
 
+        //project 3
+        addZureroPicks()
+        {
+            var picksFolder=this.gui.addFolder('Settings');
+            picksFolder.open();
+            
+            picksFolder.add(this.scene, "gameMode", ["Player vs Player","Player vs Computer","Computer vs Computer"]).name("Game Mode");
+            picksFolder.add(this.scene, "gameDifficulty", ["Easy", "Hard"]).name("Game Difficulty");
+            
+        }
+
+        addZureroOptions()
+        {
+            var optionsFolder=this.gui.addFolder('Options');
+            optionsFolder.open();
+            
+            optionsFolder.add(this.scene, "startGame").name("Start Game");
+            optionsFolder.add(this.scene, "undo").name("Undo");
+            optionsFolder.add(this.scene, "quitGame").name("Quit Game");
+        }
+
 
 
 
