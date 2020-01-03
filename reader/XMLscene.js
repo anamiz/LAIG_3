@@ -72,43 +72,8 @@ class XMLscene extends CGFscene {
         this.anim=this.graph.animations;
         for(var key in this.anim){
             this.anim[key].update(this.delta)
-            
         }
         this.last=t;
-
-        this.test();
-    }
-
-    test()
-    {
-        
-        this.game.startGame("Player vs Player","Easy");
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.firstMove("B",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.movePiece("Right",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.movePiece("Right",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.movePiece("Right",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.movePiece("Right",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.movePiece("Right",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-            this.game.movePiece("Right",19);
-            console.log(this.game.board);
-            console.log(this.game.currentState);
-    
-        
-        
     }
 
     /**

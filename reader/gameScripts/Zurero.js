@@ -103,7 +103,11 @@ class Zurero extends CGFobject {
     movePiece(orientation, value)
     {
         if(this.currentState == this.gameState.MOVE_BLACK || this.currentState == this.gameState.MOVE_WHITE){
-        var command = "movePiece(" + this.player + "," + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+value + ")";
+            if(typeof value != "string")
+            {
+                var command = "movePiece(" + this.player + "," + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+value + ")";
+            }
+            else{var command = "movePiece(" + this.player + "," + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+"'"+value+"'" + ")";}
         var zurero=this;
         this.scene.client.getPrologRequest(
             command,
@@ -149,6 +153,23 @@ class Zurero extends CGFobject {
         )
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     quitGame()
     {

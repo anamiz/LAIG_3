@@ -1511,8 +1511,23 @@ class MySceneGraph {
     displayScene() {
     this.logPicking();
     this.displayLoop('All','steelMaterial',['groundTexture']);
+    this.test();
     }
+    test()
+    {
+        this.scene.game.startGame("Player vs Player","Easy");
+        console.log(this.scene.game.board);
+        console.log(this.scene.game.currentState);
+        this.scene.game.firstMove("B",19);
+        console.log(this.scene.game.board);
+        console.log(this.scene.game.currentState);
+        this.scene.game.movePiece("Up","B");
+        console.log(this.scene.game.board);
+        console.log(this.scene.game.currentState);
+       
 
+    }
+	
 	
 	displayLoop(nodeID,fathermaterialID, fathertextureID){
 
