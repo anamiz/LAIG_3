@@ -1503,20 +1503,19 @@ class MySceneGraph {
 			}
 		}
 	}
-
+    
+ 
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-    this.logPicking();	
-    this.scene.game.startGame('Player vs Player', 'Easy');
-
-	this.displayLoop('All','steelMaterial',['groundTexture']);
+    this.logPicking();
+    this.displayLoop('All','steelMaterial',['groundTexture']);
     }
-	
-	
+
 	
 	displayLoop(nodeID,fathermaterialID, fathertextureID){
+
 		if (this.primitives[nodeID] != null){
 		this.primitives[nodeID].display();
         }
