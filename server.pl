@@ -140,3 +140,12 @@ parse_input(linePieceHit(Board, Orientation, Value), LineRes) :-
 %-- Movimentos validos --%
 parse_input(valid_Orientations(Board), Orientations) :- valid_moves(Board, Orientations, _).
 parse_input(valid_Values(Board), Values):- valid_moves(Board, _, Values).
+
+
+
+%---PC VS PC Specific--%
+
+%--Primeira jogada Pc--%
+parse_input(pc_primeira_jogada, [L|N]) :- pc_primeira_jogada(L,N). 
+
+

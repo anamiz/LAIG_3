@@ -35,7 +35,10 @@ class Zurero extends CGFobject {
         this.board=[];
         this.moves=[];
         
-
+        this.pieceBehindBool = 0; //se = 0 nao tem, se  = 1 tem peça atras --preciso chamar hasPieceBehind
+        this.vectorPieceHit=[]; //Vetor da peça em que embate, Pela ordem [cor, coluna, linha] --preciso chamar pieceBehind
+        this.validOrientations=[]; //orientaçoes validas para jogar --preciso chamar validValues
+        this.validValues=[]; //valores validos para jogar --precisa chamar validValues()
 
     }
 
@@ -155,6 +158,115 @@ class Zurero extends CGFobject {
     }
 
 
+    hasPieceBehind(orientation, value) //=0 se nao tem, = 1 se tiver peça atras
+    {
+        if(typeof value != "string")
+        {
+            var command = "hasPieceBehind("  + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+value + ")";
+        }
+        else{var command = "hasPieceBehind(" + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+"'"+value+"'" + ")";}
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+               zurero.pieceBehindBool = data.target.response;
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+    }
+
+
+    pieceBehind(orientation, value)  //Vetor da peça em que embate
+                //Pela ordem [cor, coluna, linha]
+    {
+        this.color=0;
+        this.column=0;
+        this.line=0;
+        if(typeof value != "string")
+        {
+            var command = "colorPieceHit("  + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+value + ")";
+        }
+        else{var command = "colorPieceHit(" + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+"'"+value+"'" + ")";}
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                zurero.color = data.target.response;
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+
+        if(typeof value != "string")
+        {
+            var command = "columnPieceHit("  + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+value + ")";
+        }
+        else{var command = "columnPieceHit(" + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+"'"+value+"'" + ")";}
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                zurero.column = data.target.response;
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+
+        if(typeof value != "string")
+        {
+            var command = "linePieceHit("  + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+value + ")";
+        }
+        else{var command = "linePieceHit(" + this.boardToProlog(this.board) + "," +"'"+ orientation+"'" + ","+"'"+value+"'" + ")";}
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                zurero.line = data.target.response;
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+
+        this.vectorPieceHit.push(this.color);
+        this.vectorPieceHit.push(this.column);
+        this.vectorPieceHit.push(this.line);
+
+    }
+
+    validMoves()
+    {
+        if(this.currentState != this.gameState.FIRST_MOVE_BLACK && this.currentState != this.gameState.WAITING_START)
+        {
+        var command = "valid_Orientations(" + this.boardToProlog(this.board)+ ")";
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                zurero.validOrientations = zurero.vectorToJS(data.target.response);
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+
+        var command = "valid_Values(" + this.boardToProlog(this.board)+ ")";
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                zurero.validValues = zurero.vectorToJS(data.target.response);
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+        }
+    }
+    
+
+
+
+
+
 
 
 
@@ -238,6 +350,31 @@ class Zurero extends CGFobject {
             board.push(linha);
         }
         return board;
+    }
+
+
+
+    vectorToJS(strVector){
+        var finalVector = [];
+        var i=1;
+        var str="";
+        while(strVector[i] != "]")
+        {   
+            if(strVector[i] != ",")
+            {
+                str = str + strVector[i];
+            }
+            else{
+                if(isNaN(str))
+                {finalVector.push(str);}
+                else{finalVector.push(Number(str));}
+                str="";
+                }
+            i++;
+
+        }
+        finalVector.push(str);
+        return finalVector;
     }
 
     boardToProlog(arrBoard)

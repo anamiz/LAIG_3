@@ -1516,14 +1516,11 @@ class MySceneGraph {
     test()
     {
         this.scene.game.startGame("Player vs Player","Easy");
-        console.log(this.scene.game.board);
-        console.log(this.scene.game.currentState);
-        this.scene.game.firstMove("B",19);
-        console.log(this.scene.game.board);
-        console.log(this.scene.game.currentState);
-        this.scene.game.movePiece("Up","B");
-        console.log(this.scene.game.board);
-        console.log(this.scene.game.currentState);
+       this.scene.game.firstMove("B",19);
+       this.scene.game.movePiece("Left", 19);
+        this.scene.game.validMoves();
+        console.log(this.scene.game.validOrientations);
+        console.log(this.scene.game.validValues);
        
 
     }
