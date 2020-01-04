@@ -1509,19 +1509,17 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
+
     this.logPicking();
     this.displayLoop('All','steelMaterial',['groundTexture']);
     this.test();
     }
+
     test()
     {
         this.scene.game.startGame("Player vs Player","Easy");
-       this.scene.game.firstMove("B",19);
-       this.scene.game.movePiece("Left", 19);
-        this.scene.game.validMoves();
-        console.log(this.scene.game.validOrientations);
-        console.log(this.scene.game.validValues);
-       
+        this.scene.game.pc_first_move();
+        this.scene.game.movePC();
 
     }
 	

@@ -15,10 +15,6 @@ class Zurero extends CGFobject {
             PCVSPC: 2
         };
 
-        this.difficulty = {
-            EASY: 0,
-            HARD: 1
-        };
         //maquina de estados para o estado do jogo -- necessario??
         this.gameState = {
             WAITING_START: 0,
@@ -39,6 +35,7 @@ class Zurero extends CGFobject {
         this.vectorPieceHit=[]; //Vetor da peça em que embate, Pela ordem [cor, coluna, linha] --preciso chamar pieceBehind
         this.validOrientations=[]; //orientaçoes validas para jogar --preciso chamar validValues
         this.validValues=[]; //valores validos para jogar --precisa chamar validValues()
+        this.pcMoveVector = []; //vetor do movimento PC [orientaçao,valor] -- chamar pc_choose_move
 
     }
 
@@ -51,12 +48,7 @@ class Zurero extends CGFobject {
             case "Computer vs Computer": {this.gameMode = this.mode.PCVSPC; break;}
             default: break;
         }
-        switch(gameDifficulty)
-        {
-            case "Easy": this.gameDifficulty=this.difficulty.EASY; break;
-            case "Hard": this.gameDifficulty=this.difficulty.HARD; break;
-            default: break;
-        }
+        this.gameDifficulty=gameDifficulty;
 
         this.getInitialBoard();
 
@@ -265,6 +257,96 @@ class Zurero extends CGFobject {
 
 
 
+    // PC VS PC //
+    pc_first_move()
+    {
+        if(this.currentState == this.gameState.FIRST_MOVE_BLACK){
+            this.previousState = this.currentState;
+            var zurero=this;
+            this.scene.client.getPrologRequest(
+                "pc_primeira_jogada",
+                function(data)
+                {
+                    if(data.target.response.length == 761)
+                    {
+                        zurero.board=zurero.boardToJS(data.target.response);
+                        zurero.currentState=zurero.gameState.MOVE_WHITE;
+                        console.log("pc_first_move DONE");
+                        console.log(zurero.board);
+                    }
+                },
+                function(data){console.log("Connection Error in first move");}
+            )
+            console.log(this.currentState);
+            this.nextPlayer();
+            }
+    }
+    
+
+
+
+    pc_choose_move()
+    {
+
+            var command = "pc_choose_move(" + this.boardToProlog(this.board) + ","+ this.player + ","+this.gameDifficulty+")";
+            var zurero=this;
+            this.scene.client.getPrologRequest(
+                command,
+                function(data)
+                {
+                    zurero.pcMoveVector=zurero.vectorToJS(data.target.response);
+                    console.log("pc_choose_move DONE");
+                    console.log(zurero.pcMoveVector);
+                },
+                function(data){console.log("Connection Error in first move");}
+            )
+    }
+
+    movePC()
+    {
+        if(this.currentState == this.gameState.MOVE_BLACK || this.currentState == this.gameState.MOVE_WHITE){
+        this.pc_choose_move();
+
+        console.log(this.pcMoveVector);
+
+        if(isNaN(this.pcMoveVector[1])){
+        var command = "movePC(" + this.boardToProlog(this.board) + ","+ this.player + ","+ "[" + "'"+this.pcMoveVector[0]+"'"+ ","+"'"+this.pcMoveVector[1]+"'"+"]" +")";
+        }
+        else{
+            var command = "movePC(" + this.boardToProlog(this.board) + ","+ this.player + ","+ "[" + "'"+this.pcMoveVector[0]+"'"+ ","+this.pcMoveVector[1]+"]" +")";
+
+        }
+        
+        
+        var zurero=this;
+        this.scene.client.getPrologRequest(
+            command,
+            function(data)
+            {
+                if(data.target.response.length == 761)
+                {
+                    
+                    console.log("movePC DONE");
+                    zurero.board=zurero.boardToJS(data.target.response);
+                    console.log(zurero.board);
+                }            
+            },
+            function(data){console.log("Connection Error in first move");}
+        )
+        this.previousState = this.currentState;
+        this.check_state();
+        if(this.currentState == this.gameState.WON_GAME)
+        {
+            console.log("Player "+this.player+" has won");
+        }
+        else if(this.currentState == this.gameState.MOVE_BLACK)
+        {
+            this.currentState = this.gameState.MOVE_WHITE;
+        }
+        else{this.currentState = this.gameState.MOVE_BLACK;}
+        this.nextPlayer();
+        }
+    }
 
 
 
@@ -273,16 +355,7 @@ class Zurero extends CGFobject {
 
 
 
-
-
-
-
-
-
-
-
-
-
+    //INTERFACE//
     quitGame()
     {
         if(this.currentState != this.gameState.WAITING_START)
@@ -330,6 +403,11 @@ class Zurero extends CGFobject {
     }
 
 
+
+
+
+    //AUXILIAR//
+    
     boardToJS(strBoard)
     {
         var board = [];

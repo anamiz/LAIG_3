@@ -146,6 +146,13 @@ parse_input(valid_Values(Board), Values):- valid_moves(Board, _, Values).
 %---PC VS PC Specific--%
 
 %--Primeira jogada Pc--%
-parse_input(pc_primeira_jogada, [L|N]) :- pc_primeira_jogada(L,N). 
+parse_input(pc_primeira_jogada, Board) :- pc_primeira_jogada(L,N), first(L, N, Board). 
 
+%-- retorna um vetor com a orientaçao e o valor da jogada do pc --%
+parse_input(pc_choose_move(Board, Jogador, Dificuldade), Move) :- choose_move(Board, Jogador, Dificuldade, Move).
+
+%-- Board Final com o movimento anterior (pc_choose_move) --%
+parse_input(movePC(Board, Jogador, Move), BF) :-
+	processar_jogpc(Move, Orientation, Iteration),
+	move(Jogador, Board, Orientation, Iteration, BF).
 
